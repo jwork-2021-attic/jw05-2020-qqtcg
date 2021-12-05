@@ -1,16 +1,12 @@
 package progress;
 
-import screen.Screen;
-
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class PlayerOperation implements KeyListener {
-    Screen screen;
+public class Game extends JFrame implements KeyListener {
 
-    public PlayerOperation(Screen screen){
-        this.screen = screen;
-    }
+
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -19,7 +15,7 @@ public class PlayerOperation implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        screen = screen.respondToUserInput(e);
+
     }
 
     @Override

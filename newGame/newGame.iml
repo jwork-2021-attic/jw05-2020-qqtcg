@@ -11,9 +11,7 @@
       <excludeFolder url="file://$MODULE_DIR$/${project.build.directory}/test-classes" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="16" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.github.jiconfont:jiconfont-swing:1.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.github.jiconfont:jiconfont:0.10.0" level="project" />
   </component>
 </module>
