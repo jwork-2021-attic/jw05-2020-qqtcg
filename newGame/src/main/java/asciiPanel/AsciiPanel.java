@@ -1,12 +1,10 @@
 package asciiPanel;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.LookupOp;
 import java.awt.image.ShortLookupTable;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -120,6 +118,15 @@ public class AsciiPanel extends JPanel {
     private Color[][] oldBackgroundColors;
     private Color[][] oldForegroundColors;
     private AsciiFont asciiFont;
+
+    private BufferedImage bloom;
+    private BufferedImage floor;
+    private BufferedImage flower;
+    private BufferedImage stone;
+    private BufferedImage tree;
+    private BufferedImage gourd;
+    private BufferedImage scorpion;
+    private BufferedImage startBackground;
 
     /**
      * Gets the height, in pixels, of a character.
@@ -281,8 +288,8 @@ public class AsciiPanel extends JPanel {
         }
         this.asciiFont = font;
 
-        this.charHeight = font.getHeight();
-        this.charWidth = font.getWidth();
+        this.charHeight = 30;
+        this.charWidth = 30;
         this.terminalFontFile = font.getFontFilename();
 
         Dimension panelSize = new Dimension(charWidth * widthInCharacters, charHeight * heightInCharacters);
@@ -293,9 +300,16 @@ public class AsciiPanel extends JPanel {
         offscreenBuffer = new BufferedImage(panelSize.width, panelSize.height, BufferedImage.TYPE_INT_RGB);
         offscreenGraphics = offscreenBuffer.getGraphics();
 
+        offscreenGraphics.setFont(new Font("Lucida Console", Font.BOLD, 40));
+        offscreenGraphics.setColor(Color.DARK_GRAY);
 //        loadGlyphs();
 
         oldChars = new char[widthInCharacters][heightInCharacters];
+    }
+
+    public void setGraphics(Font font, Color color){
+        offscreenGraphics.setFont(font);
+        offscreenGraphics.setColor(color);
     }
 
     /**
@@ -347,6 +361,19 @@ public class AsciiPanel extends JPanel {
         oldBackgroundColors = new Color[widthInCharacters][heightInCharacters];
         oldForegroundColors = new Color[widthInCharacters][heightInCharacters];
 
+        try {
+            bloom = ImageIO.read(new File("src/main/java/img/bloom.png"));
+            floor = ImageIO.read(new File("src/main/java/img/floor.png"));
+            flower = ImageIO.read(new File("src/main/java/img/flower.png"));
+            gourd = ImageIO.read(new File("src/main/java/img/gourd_only.png"));
+            scorpion = ImageIO.read(new File("src/main/java/img/scorpion.png"));
+            stone = ImageIO.read(new File("src/main/java/img/stone.png"));
+            tree = ImageIO.read(new File("src/main/java/img/tree.png"));
+            startBackground = ImageIO.read(new File("src/main/java/img/start_background.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         if (font == null) {
             font = AsciiFont.CP437_9x16;
         }
@@ -372,9 +399,16 @@ public class AsciiPanel extends JPanel {
                 Color bg = backgroundColors[x][y];
                 Color fg = foregroundColors[x][y];
 
-                LookupOp op = setColors(bg, fg);
-                BufferedImage img = op.filter(glyphs[chars[x][y]], null);
-                offscreenGraphics.drawImage(img, x * charWidth, y * charHeight, null);
+                if (chars[x][y] >= 32 && chars[x][y] <= 126){
+                    offscreenGraphics.drawString(String.valueOf((char)chars[x][y]), x*charWidth, y*charHeight);
+                }
+                else if (chars[x][y] == (char)1){
+                    offscreenGraphics.drawImage(startBackground, x, y, 900, 900, null);
+                }
+
+//                LookupOp op = setColors(bg, fg);
+//                BufferedImage img = op.filter(glyphs[chars[x][y]], null);
+//                offscreenGraphics.drawImage(img, x * charWidth, y * charHeight, null);
 
                 oldBackgroundColors[x][y] = backgroundColors[x][y];
                 oldForegroundColors[x][y] = foregroundColors[x][y];
@@ -878,6 +912,7 @@ public class AsciiPanel extends JPanel {
 
         if (y < 0 || y >= heightInCharacters)
             throw new IllegalArgumentException("y " + y + " must be within range [0," + heightInCharacters + ")");
+
 
         return write(string, x, y, defaultForegroundColor, defaultBackgroundColor);
     }
