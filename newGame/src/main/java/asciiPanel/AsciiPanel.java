@@ -293,7 +293,7 @@ public class AsciiPanel extends JPanel {
         offscreenBuffer = new BufferedImage(panelSize.width, panelSize.height, BufferedImage.TYPE_INT_RGB);
         offscreenGraphics = offscreenBuffer.getGraphics();
 
-        loadGlyphs();
+//        loadGlyphs();
 
         oldChars = new char[widthInCharacters][heightInCharacters];
     }
@@ -385,22 +385,22 @@ public class AsciiPanel extends JPanel {
         g.drawImage(offscreenBuffer, 0, 0, this);
     }
 
-    private void loadGlyphs() {
-        try {
-            glyphSprite = ImageIO.read(AsciiPanel.class.getClassLoader().getResource(terminalFontFile));
-        } catch (IOException e) {
-            System.err.println("loadGlyphs(): " + e.getMessage());
-        }
-
-        for (int i = 0; i < 256; i++) {
-            int sx = (i % 16) * charWidth;
-            int sy = (i / 16) * charHeight;
-
-            glyphs[i] = new BufferedImage(charWidth, charHeight, BufferedImage.TYPE_INT_ARGB);
-            glyphs[i].getGraphics().drawImage(glyphSprite, 0, 0, charWidth, charHeight, sx, sy, sx + charWidth,
-                    sy + charHeight, null);
-        }
-    }
+//    private void loadGlyphs() {
+//        try {
+//            glyphSprite = ImageIO.read(AsciiPanel.class.getClassLoader().getResource(terminalFontFile));
+//        } catch (IOException e) {
+//            System.err.println("loadGlyphs(): " + e.getMessage());
+//        }
+//
+//        for (int i = 0; i < 256; i++) {
+//            int sx = (i % 16) * charWidth;
+//            int sy = (i / 16) * charHeight;
+//
+//            glyphs[i] = new BufferedImage(charWidth, charHeight, BufferedImage.TYPE_INT_ARGB);
+//            glyphs[i].getGraphics().drawImage(glyphSprite, 0, 0, charWidth, charHeight, sx, sy, sx + charWidth,
+//                    sy + charHeight, null);
+//        }
+//    }
 
     /**
      * Create a <code>LookupOp</code> object (lookup table) mapping the original
