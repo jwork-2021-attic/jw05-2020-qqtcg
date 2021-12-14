@@ -26,6 +26,7 @@ public class Thing {
         return y;
     }
 
+
     public char getSign(){
         return sign;
     }
@@ -40,5 +41,22 @@ public class Thing {
 
     public boolean isLive(){
         return live > 0;
+    }
+
+    public int getLive(){
+        return live;
+    }
+
+    /**
+     *
+     * @return 是否被破坏， 破坏返回true
+     */
+    public boolean beBroke(){
+        this.hurt();
+        return !isLive();
+    }
+
+    public String getName(){
+        return "thing";
     }
 }

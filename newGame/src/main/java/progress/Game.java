@@ -17,7 +17,7 @@ public class Game extends JFrame implements KeyListener {
     public Game(){
         super("Game");
         // 真实大小为30 X size
-        terminal = new AsciiPanel(World.WIDTH, World.HEIGHT, AsciiFont.TALRYTH_15_15);
+        terminal = new AsciiPanel(World.WIDTH+10, World.HEIGHT, AsciiFont.TALRYTH_15_15);
         add(terminal);
         pack();
         addKeyListener(this);
@@ -42,6 +42,7 @@ public class Game extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        screen = screen.respondToUserInput(e);
 
     }
 
@@ -49,4 +50,5 @@ public class Game extends JFrame implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
     }
+
 }

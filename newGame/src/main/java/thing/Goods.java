@@ -22,6 +22,6 @@ public class Goods extends Thing{
             this.hurt();
 
         }
-        return this.isLive();
+        return !this.isLive();
     }
 }

@@ -127,6 +127,7 @@ public class AsciiPanel extends JPanel {
     private BufferedImage gourd;
     private BufferedImage scorpion;
     private BufferedImage startBackground;
+    private BufferedImage fire;
 
     /**
      * Gets the height, in pixels, of a character.
@@ -369,7 +370,8 @@ public class AsciiPanel extends JPanel {
             scorpion = ImageIO.read(new File("src/main/java/img/scorpion.png"));
             stone = ImageIO.read(new File("src/main/java/img/stone.png"));
             tree = ImageIO.read(new File("src/main/java/img/tree.png"));
-            startBackground = ImageIO.read(new File("src/main/java/img/start_background.png"));
+            startBackground = ImageIO.read(new File("src/main/java/img/start_background_(4, 3).png"));
+            fire = ImageIO.read(new File("src/main/java/img/fire.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -403,7 +405,38 @@ public class AsciiPanel extends JPanel {
                     offscreenGraphics.drawString(String.valueOf((char)chars[x][y]), x*charWidth, y*charHeight);
                 }
                 else if (chars[x][y] == (char)1){
-                    offscreenGraphics.drawImage(startBackground, x, y, 900, 900, null);
+                    offscreenGraphics.drawImage(startBackground, x, y, 1050, 750, null);
+                }
+                else if (chars[x][y] == (char)2){
+                    offscreenGraphics.drawImage(floor, x*charWidth, y*charHeight, null);
+                    offscreenGraphics.drawImage(scorpion, x*charWidth, y*charHeight, null);
+                }
+                else if (chars[x][y] == (char)3){
+                    offscreenGraphics.drawImage(floor, x*charWidth, y*charHeight, null);
+                    offscreenGraphics.drawImage(tree, x*charWidth, y*charHeight, null);
+                }
+                else if (chars[x][y] == (char)4){
+                    offscreenGraphics.drawImage(floor, x*charWidth, y*charHeight, null);
+                    offscreenGraphics.drawImage(flower, x*charWidth, y*charHeight, null);
+                }
+                else if (chars[x][y] == (char)5){
+                    offscreenGraphics.drawImage(floor, x*charWidth, y*charHeight, null);
+                }
+                else if (chars[x][y] == (char)6){
+                    offscreenGraphics.drawImage(floor, x*charWidth, y*charHeight, null);
+                    offscreenGraphics.drawImage(stone, x*charWidth, y*charHeight, null);
+                }
+                else if (chars[x][y] == (char)7){
+                    offscreenGraphics.drawImage(floor, x*charWidth, y*charHeight, null);
+                    offscreenGraphics.drawImage(gourd, x*charWidth, y*charHeight, null);
+                }
+                else if (chars[x][y] == (char)8){
+                    offscreenGraphics.drawImage(floor, x*charWidth, y*charHeight, null);
+                    offscreenGraphics.drawImage(bloom, x*charWidth, y*charHeight, null);
+                }
+                else if (chars[x][y] == (char)9){
+                    offscreenGraphics.drawImage(floor, x*charWidth, y*charHeight, null);
+                    offscreenGraphics.drawImage(fire, x*charWidth, y*charHeight, null);
                 }
 
 //                LookupOp op = setColors(bg, fg);
