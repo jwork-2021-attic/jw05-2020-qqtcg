@@ -308,6 +308,10 @@ public class AsciiPanel extends JPanel {
         oldChars = new char[widthInCharacters][heightInCharacters];
     }
 
+    public void changeFontSize(int size){
+        offscreenGraphics.setFont(new Font("Lucida Console", Font.BOLD, size));
+    }
+
     public void setGraphics(Font font, Color color){
         offscreenGraphics.setFont(font);
         offscreenGraphics.setColor(color);

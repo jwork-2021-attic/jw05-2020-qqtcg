@@ -2,10 +2,12 @@ package thing;
 
 import map.Map;
 import progress.CreateMonster;
+import progress.State;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class World {
+public class World implements Serializable {
     public static final int WIDTH = 25;
     public static final int HEIGHT = 25;
     private Map map;
@@ -101,6 +103,7 @@ public class World {
 
     public synchronized void dealExplore(int x, int y, int range){
         // 上右下左检测爆炸范围内物体
+
         for(int i = 1; i <= range; i++){
             if (y - i >= 0){
                 if (things[x][y-i].beBroke()){       // 被破坏了,beBroke自带扣一滴血
@@ -154,7 +157,7 @@ public class World {
     public synchronized void canGoDown(int x, int y){
         Creature creature;
 
-        if (y+1 >= 0 && things[x][y+1].getSign() == (char)5){
+        if (y+1 <= HEIGHT-1 && things[x][y+1].getSign() == (char)5){
             creature = (Creature) things[x][y];
             creature.moveDown();
             things[x][y] = new Floor();
@@ -182,7 +185,7 @@ public class World {
     public synchronized void canGoRight(int x, int y){
         Creature creature;
 
-        if (x+1 <= WIDTH && things[x+1][y].getSign() == (char)5){
+        if (x+1 <= WIDTH-1 && things[x+1][y].getSign() == (char)5){
             creature = (Creature) things[x][y];
             creature.moveRight();
             things[x][y] = new Floor();

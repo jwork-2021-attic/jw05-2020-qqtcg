@@ -19,6 +19,7 @@ public class EndScreen implements Screen{
 
     @Override
     public void displayOutput(AsciiPanel terminal) {
+        terminal.changeFontSize(40);
         terminal.write((char)1, 0, 0);
         if (result){
             terminal.write("Congratulations!",5,8);

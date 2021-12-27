@@ -1,6 +1,8 @@
 package thing;
 
-public class Thing {
+import java.io.Serializable;
+
+public class Thing implements Serializable {
     private int x;
     private int y;
     private int live;

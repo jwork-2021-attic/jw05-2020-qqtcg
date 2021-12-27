@@ -25,24 +25,35 @@ public class MonsterThread implements Runnable{
     @Override
     public void run() {
         while (monster.isLive() && !State.state.equals("end")){
-            int x = monster.getX();
-            int y = monster.getY();
-            switch (r.nextInt(5)){
-                case 0 -> {world.canGoUp(x, y);}
-                case 1 -> {world.canGoRight(x, y);}
-                case 2 -> {world.canGoDown(x, y);}
-                case 3 -> {world.canGoLeft(x, y);}
-                case 4 -> {
-                    if(r.nextInt(25) == 0){
-                    new Thread(()->monster.attack()).start();}
-                }
+            if (State.state.equals("run")){
+                int x = monster.getX();
+                int y = monster.getY();
+                switch (r.nextInt(5)){
+                    case 0 -> {world.canGoUp(x, y);}
+                    case 1 -> {world.canGoRight(x, y);}
+                    case 2 -> {world.canGoDown(x, y);}
+                    case 3 -> {world.canGoLeft(x, y);}
+                    case 4 -> {
+                        if(r.nextInt(30) == 0){
+                            new Thread(()->monster.attack()).start();}
+                    }
 
+                }
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                Thread.sleep(150);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            else {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
+
         }
 
         world.dieMonster(monster);
